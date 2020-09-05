@@ -36,6 +36,7 @@ namespace RS232
 
             //sortowanie wyswietlanych nazw dostępnych portów
             comboBoxPort.Sorted = true;     //true - sortuj, false - nie sortuj
+            comboBoxSpeed = true;
 
             if (comboBoxPort.Items.Count > 0)
                 comboBoxPort.SelectedIndex = 0;
