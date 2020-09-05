@@ -20,8 +20,19 @@ namespace RS232
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            int speedMin = 20;
+            int speedMax = 115000;
+            int dataNumber = 30;
+            Double number;
+           
             //odczytanie dostępnych portów wraz z wpisanie ich do rozwijanej listy
             comboBoxPort.Items.AddRange(SerialPort.GetPortNames());
+
+            int jump = (speedMax - speedMin) / dataNumber;
+            for (double i = 0; i < dataNumber; i++)
+            {
+                comboBoxSpeed.Items.Add(Convert.ToString(i * jump + speedMin + " b/s"));
+            }
 
             //sortowanie wyswietlanych nazw dostępnych portów
             comboBoxPort.Sorted = true;     //true - sortuj, false - nie sortuj
@@ -36,6 +47,9 @@ namespace RS232
             comboBoxSpeed.Enabled = true;   //lista z prędkością
             buttonConnect.Enabled = true;   //przycisk połącz
             buttonDisconnect.Enabled = false;   //przycisk rozłącz
+            buttonSend.Enabled = false;
+            buttonReceive.Enabled = false;
+              
             
 
 
@@ -46,6 +60,8 @@ namespace RS232
             //zmiana stanu przycisków po kliknięciu
             buttonConnect.Enabled = false;   //przycisk połącz
             buttonDisconnect.Enabled = true;   //przycisk rozłącz
+            buttonSend.Enabled = true;
+            buttonReceive.Enabled = true;
             try
             {
                 serialPort.PortName = comboBoxPort.Text;
@@ -79,6 +95,8 @@ namespace RS232
             //zmiana stanu przycisków po kliknięciu
             buttonConnect.Enabled = true;   //przycisk połącz
             buttonDisconnect.Enabled = false;   //przycisk rozłącz
+            buttonSend.Enabled = false;
+            buttonReceive.Enabled = false;
             try
             {
                 serialPort.Close();
