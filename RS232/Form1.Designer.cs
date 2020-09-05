@@ -55,9 +55,17 @@
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBoxRTS = new System.Windows.Forms.CheckBox();
+            this.checkBoxDTR = new System.Windows.Forms.CheckBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.buttonFlowControl = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // serialPort
@@ -125,7 +133,7 @@
             this.comboBoxPort.FormattingEnabled = true;
             this.comboBoxPort.Location = new System.Drawing.Point(569, 67);
             this.comboBoxPort.Name = "comboBoxPort";
-            this.comboBoxPort.Size = new System.Drawing.Size(175, 21);
+            this.comboBoxPort.Size = new System.Drawing.Size(173, 21);
             this.comboBoxPort.TabIndex = 8;
             // 
             // comboBoxSpeed
@@ -284,7 +292,7 @@
             this.groupBox1.Controls.Add(this.comboBoxDataBits);
             this.groupBox1.Controls.Add(this.comboBoxStopBits);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Location = new System.Drawing.Point(567, 131);
+            this.groupBox1.Location = new System.Drawing.Point(567, 140);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(194, 125);
             this.groupBox1.TabIndex = 26;
@@ -299,16 +307,81 @@
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Location = new System.Drawing.Point(569, 271);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 110);
+            this.groupBox2.Size = new System.Drawing.Size(192, 110);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Terminator";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.buttonFlowControl);
+            this.groupBox3.Controls.Add(this.groupBox5);
+            this.groupBox3.Controls.Add(this.groupBox4);
+            this.groupBox3.Location = new System.Drawing.Point(800, 51);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(200, 151);
+            this.groupBox3.TabIndex = 28;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Kontrola Przepływu";
+            // 
+            // checkBoxRTS
+            // 
+            this.checkBoxRTS.AutoSize = true;
+            this.checkBoxRTS.Location = new System.Drawing.Point(6, 33);
+            this.checkBoxRTS.Name = "checkBoxRTS";
+            this.checkBoxRTS.Size = new System.Drawing.Size(71, 17);
+            this.checkBoxRTS.TabIndex = 0;
+            this.checkBoxRTS.Text = "Użyj RTS";
+            this.checkBoxRTS.UseVisualStyleBackColor = true;
+            this.checkBoxRTS.CheckedChanged += new System.EventHandler(this.checkBoxRTS_CheckedChanged);
+            // 
+            // checkBoxDTR
+            // 
+            this.checkBoxDTR.AutoSize = true;
+            this.checkBoxDTR.Location = new System.Drawing.Point(6, 63);
+            this.checkBoxDTR.Name = "checkBoxDTR";
+            this.checkBoxDTR.Size = new System.Drawing.Size(72, 17);
+            this.checkBoxDTR.TabIndex = 1;
+            this.checkBoxDTR.Text = "Użyj DTR";
+            this.checkBoxDTR.UseVisualStyleBackColor = true;
+            this.checkBoxDTR.CheckedChanged += new System.EventHandler(this.checkBoxDTR_CheckedChanged);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.checkBoxDTR);
+            this.groupBox4.Controls.Add(this.checkBoxRTS);
+            this.groupBox4.Location = new System.Drawing.Point(6, 24);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(82, 83);
+            this.groupBox4.TabIndex = 2;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Sprzętowa";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Location = new System.Drawing.Point(109, 24);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(85, 83);
+            this.groupBox5.TabIndex = 3;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Programowa";
+            // 
+            // buttonFlowControl
+            // 
+            this.buttonFlowControl.Location = new System.Drawing.Point(6, 113);
+            this.buttonFlowControl.Name = "buttonFlowControl";
+            this.buttonFlowControl.Size = new System.Drawing.Size(186, 23);
+            this.buttonFlowControl.TabIndex = 4;
+            this.buttonFlowControl.Text = "Brak kontroli przepływu";
+            this.buttonFlowControl.UseVisualStyleBackColor = true;
+            this.buttonFlowControl.Click += new System.EventHandler(this.buttonFlowControl_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(787, 503);
+            this.ClientSize = new System.Drawing.Size(1065, 554);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonReceive);
@@ -332,6 +405,9 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -365,6 +441,12 @@
         private System.Windows.Forms.TextBox textBoxTerminatorManualy;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckBox checkBoxDTR;
+        private System.Windows.Forms.CheckBox checkBoxRTS;
+        private System.Windows.Forms.Button buttonFlowControl;
     }
 }
 

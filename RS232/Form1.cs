@@ -55,6 +55,12 @@ namespace RS232
             buttonDisconnect.Enabled = false;   //przycisk rozłącz
             buttonSend.Enabled = false;     //przycisk wyślij
             buttonReceive.Enabled = false;  //przycisk odbierz
+
+            //inicjalizacja kontroli sprzętowej
+            checkBoxDTR.Checked = false;
+            serialPort.DtrEnable = false;
+            checkBoxRTS.Checked = false;
+            serialPort.RtsEnable = false;
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
@@ -188,6 +194,36 @@ namespace RS232
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBoxRTS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxRTS.Checked)
+            {
+                serialPort.RtsEnable = true;
+            }
+            else
+            {
+                serialPort.RtsEnable = false;
+            }
+        }
+
+        private void checkBoxDTR_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxDTR.Checked)
+            {
+                serialPort.DtrEnable = true;
+            }
+            else
+            {
+                serialPort.DtrEnable = true;
+            }
+        }
+
+        private void buttonFlowControl_Click(object sender, EventArgs e)
+        {
+            checkBoxDTR.Checked = false;
+            checkBoxRTS.Checked = false;
         }
     }
 }
