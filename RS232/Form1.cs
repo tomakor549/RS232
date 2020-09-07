@@ -85,11 +85,11 @@ namespace RS232
             buttonClearReceiveTxt.Enabled = true;       //przycisk odbierz
             try
             {
-                serialPort.BaudRate = Convert.ToInt32(comboBoxSpeed.Text);  //konwersja i ustawienie prędkości transmisji
-                serialPort.PortName = comboBoxPort.Text;
-                serialPort.DataBits = Convert.ToInt32(comboBoxDataBits.Text);
-                serialPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), comboBoxStopBits.Text);
-                serialPort.Parity = (Parity)Enum.Parse(typeof(Parity), comboBoxParityBits.Text);
+                serialPort.BaudRate = Convert.ToInt32(comboBoxSpeed.Text);                  //konwersja i ustawienie prędkości transmisji
+                serialPort.PortName = comboBoxPort.Text;                                    //ustawianie portu
+                serialPort.DataBits = Convert.ToInt32(comboBoxDataBits.Text);               //ustawienie bitów pola danych
+                serialPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), comboBoxStopBits.Text);    //ustawienie bitu stopu
+                serialPort.Parity = (Parity)Enum.Parse(typeof(Parity), comboBoxParityBits.Text);        //ustawienie kontroli
                 serialPort.Open();
 
             }
@@ -110,28 +110,25 @@ namespace RS232
                     //serialPort.Write(txtMessage.Text.ToString());
 
                     //dopisanie terminatora do bufora
-                    if(checkBoxCR.Checked == checkBoxLF.Checked == false)
+                    if (textBoxTerminatorManualy.Text.Length == 0 || textBoxTerminatorManualy.Text.Length > 2)
                     {
-                        if (textBoxTerminatorManualy.Text.Length == 0 || textBoxTerminatorManualy.Text.Length > 2)
+                        serialPort.Write(txtMessage.Text.ToString());
+
+                        if (checkBoxCR.Checked)     //czy ma wysyłać polecenie powrotu karetki
                         {
-                            if (checkBoxCR.Checked)     //czy ma wysyłać polecenie powrotu karetki
-                            {
-                                //wysłanie polecenia powrotu
-                                serialPort.Write(txtMessage.Text.ToString() + "\r");
-                            }
-                            if (checkBoxLF.Checked)     //czy ma wysyłać polecenie nowej lini
-                            {
-                                //wysłanie polecenia nowej lini
-                                serialPort.Write(txtMessage.Text.ToString() + "\n");
-                            }
+                            //wysłanie polecenia powrotu (ustawia kursor na początek lini i nadpisuje pojedyńcze znaki)
+                            serialPort.Write("\r");
                         }
-                        else
+                        if (checkBoxLF.Checked)     //czy ma wysyłać polecenie nowej lini
                         {
-                            serialPort.Write(txtMessage.Text.ToString() + textBoxTerminatorManualy.Text.ToString());
+                            //wysłanie polecenia nowej lini
+                            serialPort.Write("\n");
                         }
+
                     }
                     else
                     {
+                        //dodanie ręcznego terminatora
                         serialPort.Write(txtMessage.Text.ToString() + textBoxTerminatorManualy.Text.ToString());
                     }
 
@@ -147,9 +144,9 @@ namespace RS232
         private void buttonDisconnect_Click(object sender, EventArgs e)
         {
             //zmiana stanu przycisków po kliknięciu
-            buttonConnect.Enabled = true;       //przycisk połącz
-            buttonDisconnect.Enabled = false;   //przycisk rozłącz
-            buttonSend.Enabled = false;         //przycisk wyślij 
+            buttonConnect.Enabled = true;               //przycisk połącz
+            buttonDisconnect.Enabled = false;           //przycisk rozłącz
+            buttonSend.Enabled = false;                 //przycisk wyślij 
             buttonClearReceiveTxt.Enabled = false;      //przycisk odbierz
             try
             {
@@ -163,23 +160,12 @@ namespace RS232
 
         private void buttonReceive_Click(object sender, EventArgs e)
         {
-            txtReceive.Text = "";
-            /*try
-            {
-                if (serialPort.IsOpen)
-                {  
-                    txtReceive.Text += serialPort.ReadExisting();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+            txtReceive.Text = ""; //czyszczenie pola tekstowego
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (serialPort.IsOpen)
+            if (serialPort.IsOpen)      //zamykanie portu po wyłączeniu programu
                 serialPort.Close();
         }
 
@@ -241,6 +227,7 @@ namespace RS232
 
         private void checkBoxRTS_CheckedChanged(object sender, EventArgs e)
         {
+            //ustawianie RTS
             if (checkBoxRTS.Checked)
             {
                 serialPort.RtsEnable = true;
@@ -253,6 +240,7 @@ namespace RS232
 
         private void checkBoxDTR_CheckedChanged(object sender, EventArgs e)
         {
+            //ustawianie DTR
             if (checkBoxDTR.Checked)
             {
                 serialPort.DtrEnable = true;
@@ -265,11 +253,12 @@ namespace RS232
 
         private void buttonFlowControl_Click(object sender, EventArgs e)
         {
+            //Odznaczanie opcji kontroli przepływu
             checkBoxDTR.Checked = false;
             checkBoxRTS.Checked = false;
+            checkBoxHandshake.Checked = false;
         }
 
-        string dataIN;
         private void txtReceive_TextChanged(object sender, EventArgs e)
         {
 
@@ -282,6 +271,7 @@ namespace RS232
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            //programowa kontrola przepływu
             if (checkBoxHandshake.Checked)
             {
                 serialPort.Handshake = Handshake.XOnXOff;
@@ -294,6 +284,7 @@ namespace RS232
 
         private void buttonPing_Click(object sender, EventArgs e)
         {
+            //reakcja na kliknięcie przycisku PING
             try
             {
                 if (serialPort.IsOpen)
@@ -310,9 +301,14 @@ namespace RS232
 
         private void checkCharacterFormat()
         {
+            //sprzwdzanie poprawności formatu znaku
             if (comboBoxParityBits.SelectedItem.ToString() != "None" && comboBoxDataBits.SelectedItem.ToString() == "8")
             {
                 comboBoxStopBits.SelectedItem = "1";
+            }
+            else
+            {
+                comboBoxStopBits.SelectedItem = "2";
             }
         }
 
