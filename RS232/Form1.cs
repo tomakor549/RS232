@@ -62,7 +62,7 @@ namespace RS232
             buttonDisconnect.Enabled = false;   //przycisk rozłącz
             buttonSend.Enabled = false;     //przycisk wyślij
             buttonClearReceiveTxt.Enabled = false;  //przycisk odbierz
-
+            
             //inicjalizacja kontroli sprzętowej
             checkBoxDTR.Checked = false;
             serialPort.DtrEnable = false;
@@ -134,8 +134,6 @@ namespace RS232
                     {
                         serialPort.Write(txtMessage.Text.ToString() + textBoxTerminatorManualy.Text.ToString());
                     }
-
-
 
                     txtMessage.Clear();
                 }
@@ -236,11 +234,6 @@ namespace RS232
 
         }
 
-        private void comboBoxStopBits_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -315,9 +308,29 @@ namespace RS232
             }
         }
 
+        private void checkCharacterFormat()
+        {
+            if (comboBoxParityBits.SelectedItem.ToString() != "None" && comboBoxDataBits.SelectedItem.ToString() == "8")
+            {
+                comboBoxStopBits.SelectedItem = "1";
+            }
+        }
+
         private void comboBoxParityBits_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            checkCharacterFormat();
         }
+
+        private void comboBoxDataBits_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            checkCharacterFormat();
+        }
+
+        private void comboBoxStopBits_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            checkCharacterFormat();
+        }
+
     }
 }
