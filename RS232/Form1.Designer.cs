@@ -41,7 +41,7 @@
             this.txtMessage = new System.Windows.Forms.RichTextBox();
             this.txtReceive = new System.Windows.Forms.RichTextBox();
             this.buttonSend = new System.Windows.Forms.Button();
-            this.buttonReceive = new System.Windows.Forms.Button();
+            this.buttonClearReceiveTxt = new System.Windows.Forms.Button();
             this.comboBoxDataBits = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxParityBits = new System.Windows.Forms.ComboBox();
@@ -56,11 +56,11 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.checkBoxRTS = new System.Windows.Forms.CheckBox();
-            this.checkBoxDTR = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.buttonFlowControl = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBoxDTR = new System.Windows.Forms.CheckBox();
+            this.checkBoxRTS = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -157,9 +157,10 @@
             // 
             this.txtReceive.Location = new System.Drawing.Point(294, 51);
             this.txtReceive.Name = "txtReceive";
-            this.txtReceive.Size = new System.Drawing.Size(247, 301);
+            this.txtReceive.Size = new System.Drawing.Size(247, 261);
             this.txtReceive.TabIndex = 11;
             this.txtReceive.Text = "";
+            this.txtReceive.TextChanged += new System.EventHandler(this.txtReceive_TextChanged);
             // 
             // buttonSend
             // 
@@ -171,15 +172,15 @@
             this.buttonSend.UseVisualStyleBackColor = true;
             this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
             // 
-            // buttonReceive
+            // buttonClearReceiveTxt
             // 
-            this.buttonReceive.Location = new System.Drawing.Point(294, 358);
-            this.buttonReceive.Name = "buttonReceive";
-            this.buttonReceive.Size = new System.Drawing.Size(75, 23);
-            this.buttonReceive.TabIndex = 13;
-            this.buttonReceive.Text = "Odbierz";
-            this.buttonReceive.UseVisualStyleBackColor = true;
-            this.buttonReceive.Click += new System.EventHandler(this.buttonReceive_Click);
+            this.buttonClearReceiveTxt.Location = new System.Drawing.Point(294, 320);
+            this.buttonClearReceiveTxt.Name = "buttonClearReceiveTxt";
+            this.buttonClearReceiveTxt.Size = new System.Drawing.Size(247, 32);
+            this.buttonClearReceiveTxt.TabIndex = 13;
+            this.buttonClearReceiveTxt.Text = "Wyczyść";
+            this.buttonClearReceiveTxt.UseVisualStyleBackColor = true;
+            this.buttonClearReceiveTxt.Click += new System.EventHandler(this.buttonReceive_Click);
             // 
             // comboBoxDataBits
             // 
@@ -324,27 +325,24 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Kontrola Przepływu";
             // 
-            // checkBoxRTS
+            // buttonFlowControl
             // 
-            this.checkBoxRTS.AutoSize = true;
-            this.checkBoxRTS.Location = new System.Drawing.Point(6, 33);
-            this.checkBoxRTS.Name = "checkBoxRTS";
-            this.checkBoxRTS.Size = new System.Drawing.Size(71, 17);
-            this.checkBoxRTS.TabIndex = 0;
-            this.checkBoxRTS.Text = "Użyj RTS";
-            this.checkBoxRTS.UseVisualStyleBackColor = true;
-            this.checkBoxRTS.CheckedChanged += new System.EventHandler(this.checkBoxRTS_CheckedChanged);
+            this.buttonFlowControl.Location = new System.Drawing.Point(6, 113);
+            this.buttonFlowControl.Name = "buttonFlowControl";
+            this.buttonFlowControl.Size = new System.Drawing.Size(186, 23);
+            this.buttonFlowControl.TabIndex = 4;
+            this.buttonFlowControl.Text = "Brak kontroli przepływu";
+            this.buttonFlowControl.UseVisualStyleBackColor = true;
+            this.buttonFlowControl.Click += new System.EventHandler(this.buttonFlowControl_Click);
             // 
-            // checkBoxDTR
+            // groupBox5
             // 
-            this.checkBoxDTR.AutoSize = true;
-            this.checkBoxDTR.Location = new System.Drawing.Point(6, 63);
-            this.checkBoxDTR.Name = "checkBoxDTR";
-            this.checkBoxDTR.Size = new System.Drawing.Size(72, 17);
-            this.checkBoxDTR.TabIndex = 1;
-            this.checkBoxDTR.Text = "Użyj DTR";
-            this.checkBoxDTR.UseVisualStyleBackColor = true;
-            this.checkBoxDTR.CheckedChanged += new System.EventHandler(this.checkBoxDTR_CheckedChanged);
+            this.groupBox5.Location = new System.Drawing.Point(109, 24);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(85, 83);
+            this.groupBox5.TabIndex = 3;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Programowa";
             // 
             // groupBox4
             // 
@@ -357,24 +355,27 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Sprzętowa";
             // 
-            // groupBox5
+            // checkBoxDTR
             // 
-            this.groupBox5.Location = new System.Drawing.Point(109, 24);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(85, 83);
-            this.groupBox5.TabIndex = 3;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Programowa";
+            this.checkBoxDTR.AutoSize = true;
+            this.checkBoxDTR.Location = new System.Drawing.Point(6, 63);
+            this.checkBoxDTR.Name = "checkBoxDTR";
+            this.checkBoxDTR.Size = new System.Drawing.Size(72, 17);
+            this.checkBoxDTR.TabIndex = 1;
+            this.checkBoxDTR.Text = "Użyj DTR";
+            this.checkBoxDTR.UseVisualStyleBackColor = true;
+            this.checkBoxDTR.CheckedChanged += new System.EventHandler(this.checkBoxDTR_CheckedChanged);
             // 
-            // buttonFlowControl
+            // checkBoxRTS
             // 
-            this.buttonFlowControl.Location = new System.Drawing.Point(6, 113);
-            this.buttonFlowControl.Name = "buttonFlowControl";
-            this.buttonFlowControl.Size = new System.Drawing.Size(186, 23);
-            this.buttonFlowControl.TabIndex = 4;
-            this.buttonFlowControl.Text = "Brak kontroli przepływu";
-            this.buttonFlowControl.UseVisualStyleBackColor = true;
-            this.buttonFlowControl.Click += new System.EventHandler(this.buttonFlowControl_Click);
+            this.checkBoxRTS.AutoSize = true;
+            this.checkBoxRTS.Location = new System.Drawing.Point(6, 33);
+            this.checkBoxRTS.Name = "checkBoxRTS";
+            this.checkBoxRTS.Size = new System.Drawing.Size(71, 17);
+            this.checkBoxRTS.TabIndex = 0;
+            this.checkBoxRTS.Text = "Użyj RTS";
+            this.checkBoxRTS.UseVisualStyleBackColor = true;
+            this.checkBoxRTS.CheckedChanged += new System.EventHandler(this.checkBoxRTS_CheckedChanged);
             // 
             // Form1
             // 
@@ -384,7 +385,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.buttonReceive);
+            this.Controls.Add(this.buttonClearReceiveTxt);
             this.Controls.Add(this.buttonSend);
             this.Controls.Add(this.txtReceive);
             this.Controls.Add(this.txtMessage);
@@ -427,7 +428,7 @@
         private System.Windows.Forms.RichTextBox txtMessage;
         private System.Windows.Forms.RichTextBox txtReceive;
         private System.Windows.Forms.Button buttonSend;
-        private System.Windows.Forms.Button buttonReceive;
+        private System.Windows.Forms.Button buttonClearReceiveTxt;
         private System.Windows.Forms.ComboBox comboBoxDataBits;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxParityBits;
