@@ -13,8 +13,6 @@ namespace RS232
 {
     public partial class Form1 : Form
     {
-        string dataIN;      //input data
-
         public Form1()
         {
             InitializeComponent();
@@ -66,6 +64,10 @@ namespace RS232
 
             //blokowanie wpisywania danych do okna
             txtReceive.ReadOnly = true;
+
+            checkBoxHandshake.Checked = false;
+            serialPort.Handshake = Handshake.None;
+
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
@@ -99,7 +101,7 @@ namespace RS232
                 if (serialPort.IsOpen)
                 {
                     //wysłanie bufora na łącze
-                    serialPort.Write(txtMessage.Text.ToString());
+                    //serialPort.Write(txtMessage.Text.ToString());
 
                     //dopisanie terminatora do bufora
                     if(checkBoxCR.Checked == checkBoxLF.Checked == false)
@@ -109,22 +111,22 @@ namespace RS232
                             if (checkBoxCR.Checked)     //czy ma wysyłać polecenie powrotu karetki
                             {
                                 //wysłanie polecenia powrotu
-                                serialPort.Write("\r");
+                                serialPort.Write(txtMessage.Text.ToString() + "\r");
                             }
                             if (checkBoxLF.Checked)     //czy ma wysyłać polecenie nowej lini
                             {
                                 //wysłanie polecenia nowej lini
-                                serialPort.Write("\n");
+                                serialPort.Write(txtMessage.Text.ToString() + "\n");
                             }
                         }
                         else
                         {
-                            serialPort.Write(textBoxTerminatorManualy.Text.ToString());
+                            serialPort.Write(txtMessage.Text.ToString() + textBoxTerminatorManualy.Text.ToString());
                         }
                     }
                     else
                     {
-                        serialPort.Write(textBoxTerminatorManualy.Text.ToString());
+                        serialPort.Write(txtMessage.Text.ToString() + textBoxTerminatorManualy.Text.ToString());
                     }
 
 
@@ -240,15 +242,27 @@ namespace RS232
             checkBoxRTS.Checked = false;
         }
 
+        string dataIN;
         private void txtReceive_TextChanged(object sender, EventArgs e)
         {
-            dataIN += serialPort.ReadExisting();
-            this.Invoke(new EventHandler(ShowData));
+
         }
 
         private void ShowData(object sender, EventArgs e)
         {
-            txtMessage.Text += dataIN;
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxHandshake.Checked)
+            {
+                serialPort.Handshake = Handshake.XOnXOff;
+            }
+            else
+            {
+                serialPort.Handshake = Handshake.None;
+            }
         }
     }
 }
