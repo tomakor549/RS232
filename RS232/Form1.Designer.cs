@@ -58,11 +58,11 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.buttonFlowControl = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.checkBoxHandshake = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkBoxDTR = new System.Windows.Forms.CheckBox();
             this.checkBoxRTS = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.checkBoxHandshake = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -142,6 +142,22 @@
             // comboBoxSpeed
             // 
             this.comboBoxSpeed.FormattingEnabled = true;
+            this.comboBoxSpeed.Items.AddRange(new object[] {
+            "150",
+            "300",
+            "600",
+            "1200",
+            "1800",
+            "2400",
+            "4800",
+            "7200",
+            "9600",
+            "14400",
+            "19200",
+            "38400",
+            "56000",
+            "76800",
+            "115000"});
             this.comboBoxSpeed.Location = new System.Drawing.Point(387, 57);
             this.comboBoxSpeed.Name = "comboBoxSpeed";
             this.comboBoxSpeed.Size = new System.Drawing.Size(88, 21);
@@ -348,6 +364,17 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Programowa";
             // 
+            // checkBoxHandshake
+            // 
+            this.checkBoxHandshake.AutoSize = true;
+            this.checkBoxHandshake.Location = new System.Drawing.Point(4, 27);
+            this.checkBoxHandshake.Name = "checkBoxHandshake";
+            this.checkBoxHandshake.Size = new System.Drawing.Size(81, 17);
+            this.checkBoxHandshake.TabIndex = 0;
+            this.checkBoxHandshake.Text = "XON/XOFF";
+            this.checkBoxHandshake.UseVisualStyleBackColor = true;
+            this.checkBoxHandshake.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.checkBoxDTR);
@@ -389,17 +416,6 @@
             this.label4.Size = new System.Drawing.Size(23, 13);
             this.label4.TabIndex = 29;
             this.label4.Text = "b/s";
-            // 
-            // checkBoxHandshake
-            // 
-            this.checkBoxHandshake.AutoSize = true;
-            this.checkBoxHandshake.Location = new System.Drawing.Point(4, 27);
-            this.checkBoxHandshake.Name = "checkBoxHandshake";
-            this.checkBoxHandshake.Size = new System.Drawing.Size(81, 17);
-            this.checkBoxHandshake.TabIndex = 0;
-            this.checkBoxHandshake.Text = "XON/XOFF";
-            this.checkBoxHandshake.UseVisualStyleBackColor = true;
-            this.checkBoxHandshake.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Form1
             // 

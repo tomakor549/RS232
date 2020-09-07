@@ -20,18 +20,21 @@ namespace RS232
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            int speedMin = 150;
-            int speedMax = 115000;
-            int dataNumber = 30;
+            
            
             //odczytanie dostępnych portów wraz z wpisanie ich do rozwijanej listy
             comboBoxPort.Items.AddRange(SerialPort.GetPortNames());
 
+            /*//generowanie listy prędkości (jeśli nie zrobiono ręcznie)
+            int speedMin = 150;
+            int speedMax = 115000;
+            int dataNumber = 30;
             int jump = (speedMax - speedMin) / dataNumber;
             for (int i = 0; i < dataNumber; i++)
             {
                 comboBoxSpeed.Items.Add(i * jump + speedMin);
-            }
+            }*/
+
 
             //sortowanie wyswietlanych nazw dostępnych portów
             comboBoxPort.Sorted = true;     //true - sortuj, false - nie sortuj
@@ -67,7 +70,6 @@ namespace RS232
 
             checkBoxHandshake.Checked = false;
             serialPort.Handshake = Handshake.None;
-
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
