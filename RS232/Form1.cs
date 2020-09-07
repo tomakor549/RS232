@@ -194,7 +194,7 @@ namespace RS232
             if(data == pingRequest)
             {
                 this.stopwatch.Stop();
-                data = "Opuźnienie w obie strony: " + this.stopwatch.Elapsed.TotalMilliseconds + " ms\n";
+                data = "Opóźnienie w obie strony: " + this.stopwatch.Elapsed.TotalMilliseconds + " ms\n";
                 this.stopwatch.Reset();
             }
 
