@@ -13,6 +13,10 @@ namespace RS232
 {
     public partial class Form1 : Form
     {
+        private System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+        string pingTest = "pingT";
+        string pingRequest = "pingR";
+
         public Form1()
         {
             InitializeComponent();
@@ -183,11 +187,38 @@ namespace RS232
 
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            string data = serialPort.ReadExisting();
+
+            //sprawdzanie czy wykonujemy test połączenia
+            if (data == pingTest)
+            {
+                try
+                {
+                    if (serialPort.IsOpen)
+                    {
+                        serialPort.Write(pingRequest);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return;
+            }
+
+            //wyświetlamy wynik testu
+            if(data == pingRequest)
+            {
+                this.stopwatch.Stop();
+                data = "Opuźnienie w obie strony: " + this.stopwatch.Elapsed.TotalMilliseconds + " ms\n";
+                this.stopwatch.Reset();
+            }
+
             //sprawdzenie czy komponent gdzie wypisywane są odebrane dane jest w tym samym wątku co odbiór danych
             if (txtReceive.InvokeRequired)
             {
                 //utworzenie delegata (wskaźnika do mikro funkcji) metody do wpisywania danych w komponencie z bufora odbioru danych
-                Action act = () => txtReceive.Text += serialPort.ReadExisting();
+                Action act = () => txtReceive.Text += data;
 
                 //wykonanie delegata dla wątku głównego
                 Invoke(act);   //wywołanie delegata
@@ -195,8 +226,9 @@ namespace RS232
             else
             {
                 //jeżeli jest w tym samym wątku przepisz normalnie dane z bufora do komponentu
-                txtReceive.Text += serialPort.ReadExisting();
+                txtReceive.Text += data;
             }
+                
         }
 
         private void comboBoxSpeed_SelectedIndexChanged(object sender, EventArgs e)
@@ -265,6 +297,27 @@ namespace RS232
             {
                 serialPort.Handshake = Handshake.None;
             }
+        }
+
+        private void buttonPing_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPort.IsOpen)
+                {
+                    this.stopwatch.Start();
+                    serialPort.Write(pingTest);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void comboBoxParityBits_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

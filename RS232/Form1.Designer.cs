@@ -63,6 +63,7 @@
             this.checkBoxDTR = new System.Windows.Forms.CheckBox();
             this.checkBoxRTS = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.buttonPing = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -133,6 +134,7 @@
             // 
             // comboBoxPort
             // 
+            this.comboBoxPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPort.FormattingEnabled = true;
             this.comboBoxPort.Location = new System.Drawing.Point(300, 57);
             this.comboBoxPort.Name = "comboBoxPort";
@@ -141,6 +143,7 @@
             // 
             // comboBoxSpeed
             // 
+            this.comboBoxSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSpeed.FormattingEnabled = true;
             this.comboBoxSpeed.Items.AddRange(new object[] {
             "150",
@@ -195,7 +198,7 @@
             // 
             this.buttonClearReceiveTxt.Location = new System.Drawing.Point(12, 306);
             this.buttonClearReceiveTxt.Name = "buttonClearReceiveTxt";
-            this.buttonClearReceiveTxt.Size = new System.Drawing.Size(266, 32);
+            this.buttonClearReceiveTxt.Size = new System.Drawing.Size(121, 32);
             this.buttonClearReceiveTxt.TabIndex = 13;
             this.buttonClearReceiveTxt.Text = "Wyczyść";
             this.buttonClearReceiveTxt.UseVisualStyleBackColor = true;
@@ -203,6 +206,7 @@
             // 
             // comboBoxDataBits
             // 
+            this.comboBoxDataBits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDataBits.FormattingEnabled = true;
             this.comboBoxDataBits.Items.AddRange(new object[] {
             "7",
@@ -223,6 +227,7 @@
             // 
             // comboBoxParityBits
             // 
+            this.comboBoxParityBits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxParityBits.FormattingEnabled = true;
             this.comboBoxParityBits.Items.AddRange(new object[] {
             "None",
@@ -232,6 +237,7 @@
             this.comboBoxParityBits.Name = "comboBoxParityBits";
             this.comboBoxParityBits.Size = new System.Drawing.Size(82, 21);
             this.comboBoxParityBits.TabIndex = 16;
+            this.comboBoxParityBits.SelectedIndexChanged += new System.EventHandler(this.comboBoxParityBits_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -244,6 +250,7 @@
             // 
             // comboBoxStopBits
             // 
+            this.comboBoxStopBits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStopBits.FormattingEnabled = true;
             this.comboBoxStopBits.Items.AddRange(new object[] {
             "1",
@@ -417,11 +424,22 @@
             this.label4.TabIndex = 29;
             this.label4.Text = "b/s";
             // 
+            // buttonPing
+            // 
+            this.buttonPing.Location = new System.Drawing.Point(156, 307);
+            this.buttonPing.Name = "buttonPing";
+            this.buttonPing.Size = new System.Drawing.Size(122, 31);
+            this.buttonPing.TabIndex = 30;
+            this.buttonPing.Text = "PING";
+            this.buttonPing.UseVisualStyleBackColor = true;
+            this.buttonPing.Click += new System.EventHandler(this.buttonPing_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(719, 449);
+            this.Controls.Add(this.buttonPing);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -493,6 +511,7 @@
         private System.Windows.Forms.Button buttonFlowControl;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox checkBoxHandshake;
+        private System.Windows.Forms.Button buttonPing;
     }
 }
 
