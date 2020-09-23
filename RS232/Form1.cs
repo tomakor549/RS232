@@ -14,8 +14,8 @@ namespace RS232
     public partial class Form1 : Form
     {
         private System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-        string pingTest = "pingT";
-        string pingRequest = "pingR";
+        string pingTest = "|";
+        string pingRequest = "/";
 
         public Form1()
         {
